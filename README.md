@@ -9,6 +9,13 @@ StringWork is a react-like library for building user interfaces.<br>
 
 Right now StringWork is only available via this repository. 
 
+To view demo project execute following in the root directory:
+
+```shell
+npm install
+npm start
+```
+
 # Examples
 
 ```javascript
@@ -49,3 +56,4 @@ the code just like in an HTML-Document.
 * The library must be attached to the window. Otherwise component-html-elements 
 are not able to access their instances in the virtual dom. 
   
+
