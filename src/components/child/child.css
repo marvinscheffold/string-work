@@ -1,0 +1,10 @@
+.view{
+    color:white;
+    width:300px;
+    padding:20px;
+    float:left;
+}
+
+.view:hover{
+    cursor:pointer;
+}

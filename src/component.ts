@@ -1,5 +1,3 @@
-// @ts-ignore
-import { v4 as uuidv4 } from "uuid";
 import * as _ from "lodash";
 
 export interface ComponentClass {
@@ -15,38 +13,49 @@ export interface ComponentState {
 }
 
 export default abstract class Component{
-    public readonly id: string = uuidv4();
+    public readonly id: string = window.framework.getNewComponentId();
     public readonly key: string;
 
     public html: string;
 
     protected readonly self: string = `window.framework.getComponentInstanceById('${this.id}')`;
-    protected state: ComponentState = {};
-    protected props: ComponentProps = {};
+    protected state: ComponentState;
+    protected props: ComponentProps;
 
-    protected constructor(props: ComponentProps = {}, key: string) {
+    protected constructor(props: ComponentProps, key: string) {
         this.props = props
         this.key = key;
     }
 
-    /*
-     * Getter
-     */
-
-    getId(): string{
-        return this.id;
+    protected setState(state: ComponentState){
+        if(state === undefined){return}
+        let prevState = this.state;
+        this.state = Object.assign(this.state, state);
+        window.framework.updateComponent(this, this.props, prevState);
     }
 
-    /*
-     * Setter
-     */
+    public getState(): ComponentState{
+        return this.state;
+    }
 
-    protected setState(state: ComponentState){
-        // Cannot call setState with empty state
-        // Reset state.fields instead
-        if(state === undefined){return}
-        this.state = state;
-        window.framework.updateComponent(this);
+    public setProps(props: ComponentProps){
+        if(props === undefined){return}
+        this.props = props
+    }
+
+    public getProps(): ComponentProps{
+        return this.props;
+    }
+
+    // If state or props changed return true
+    // Pass undefined to only compare one of both state or props
+    public shouldComponentUpdate(nextState: ComponentState = this.state, nextProps: ComponentProps = this.props): boolean{
+        function customizer(obj1Value: any, obj2Value: any) {
+            if (_.isFunction(obj1Value) && _.isFunction(obj2Value)) {
+                return true;
+            }
+        }
+        return (!_.isEqualWith(nextState, this.state, customizer) || !_.isEqualWith(nextProps, this.props, customizer))
     }
 
     /*
@@ -54,26 +63,13 @@ export default abstract class Component{
      */
     abstract render(): string;
 
-    componentDidRender(html: string){
+    public componentDidRender(html: string){
         this.html = html;
     }
 
-    componentDidMount(){
+    public componentDidMount(){}
 
-    }
+    public componentDidUpdate(prevProps: ComponentProps, prevState: ComponentState){}
 
-    // If state or props changed return true
-    // Pass undefined to only compare one of both state or props
-    shouldComponentUpdate(nextState: ComponentState = this.state, nextProps: ComponentProps = this.props): boolean{
-        return (!_.isEqual(nextState, this.state) || !_.isEqual(nextProps, this.props))
-    }
-
-    componentDidUpdate(){
-
-    }
-
-    componentWillUnmount(){
-
-    }
-
+    public componentWillUnmount(){}
 }

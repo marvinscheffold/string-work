@@ -1,11 +1,17 @@
-import Component, {ComponentProps} from "../../component";
-import "./view.css"
+import Component from "../../component";
+import "./child.css"
 
+type Props = {
+    callback: Function,
+    student:{
+        name: string,
+        age: number
+    }
+}
 
-
-export default class View extends Component{
-    constructor(props: ComponentProps, refId: string) {
-        super(props, refId);
+export default class Child extends Component{
+    constructor(props: Props, key: string) {
+        super(props, key);
         this.state = {
             color:this.randomColor()
         }
@@ -13,8 +19,8 @@ export default class View extends Component{
     render() {
         let student = this.props.student;
         return (`
-            <div style="background-color: ${this.state.color}" class="view" onclick="${this.self}.changeColor(event)">
-                ${student.name} ist ${student.age} years old
+            <div class="view" style="background-color: ${this.state.color}" onclick="${this.self}.changeColor(event)">
+             ${student.name} is ${student.age} years old   
             </div>
         `);
     }

@@ -1,17 +1,17 @@
-import StringWork, {component} from "./framework"
-import Jumbo from "./components/jumbo/jumbo"
+import {initiateStringWork, component} from "./string-work"
+import Parent from "./components/parent/parent"
+
+
 function main(){
 
-    let framework = new StringWork();
-    window.framework = framework;
-
-
     let students = [
-        {name:"Jan",age:23},
-        {name:"Maike",age:22}
-    ]
+        {name:"hannes",age:23},
+        {name:"maya",age:20},
+        {name:"mike",age:1}
+    ];
 
-    framework.render(component(Jumbo,{students:students}, "123"),document.getElementById("root"));
+    let stringWork = initiateStringWork();
+    stringWork.render(component(Parent,{students:students}, "KEY"),document.getElementById("root"));
 
 }
 
