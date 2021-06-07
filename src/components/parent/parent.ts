@@ -10,7 +10,6 @@ export default class Parent extends Component{
 
         this.state = {
             clickedStudentName: "",
-            students: props.students
         }
     }
     render(){
@@ -18,7 +17,7 @@ export default class Parent extends Component{
              <div class="jumbo">
                 <span>You clicked on student: ${this.state.clickedStudentName}</span>
                 <br><br>
-                    ${this.state.students.map((student: any, index: number) =>
+                    ${this.props.students.map((student: any, index: number) =>
                         component(Child,{callback: this.callback.bind(this), student: student},"KEY"+index)
                     ).join("")}
                
