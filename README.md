@@ -1,15 +1,15 @@
-#StringWork  
+# StringWork  
 
 StringWork is a react-like library for building user interfaces.<br>
 
 * It´s core is based on JavaScript template literals
 * It is built with TypeScript 
 
-#Installation
+# Installation
 
 Right now StringWork is only available via this repository. 
 
-#Examples
+# Examples
 
 ```javascript
 
@@ -39,7 +39,7 @@ You´ll  notice that StringWork uses an HTML-like Syntax.
 JavaScript template literals make that possible. Editors like WebStorm will highlight 
 the code just like in an HTML-Document.
 
-#Issues 
+# Issues 
 
 * To differentiate component instances a constant key-parameter 
   passed in from the parent component is still necessary. 
