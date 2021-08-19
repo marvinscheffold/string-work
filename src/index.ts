@@ -3,7 +3,7 @@ import App from "./example/app";
 
 function main() {
     new StringWorkDOM().render(
-        component(App, null, "KEY1"),
+        component(App, null, "KEY"),
         document.getElementById("root")
     );
 }

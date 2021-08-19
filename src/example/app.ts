@@ -8,7 +8,7 @@ export default class App extends Component {
     }
     render(): string {
         return `<div class="container" style="padding-top: 24px">
-                ${component(Counter, null, "12345")}
+                ${component(Counter, null, "123458")}
             </div>`;
     }
 }

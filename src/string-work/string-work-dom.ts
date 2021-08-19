@@ -11,7 +11,7 @@ declare global {
 }
 
 export default class StringWorkDOM {
-    private elements: Component<ComponentProps, void>[] = [];
+    private elements: Component<ComponentProps, any>[] = [];
     constructor() {
         window.StringWorkDOM = this;
     }

@@ -2,7 +2,7 @@ import * as _ from "lodash";
 import { v4 as uuid } from "uuid";
 
 export interface ComponentClass {
-    new (props: ComponentProps, key: string): Component<ComponentProps>;
+    new (props: ComponentProps, key: string): Component<ComponentProps, any>;
 }
 
 export interface ComponentProps {
