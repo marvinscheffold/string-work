@@ -2,7 +2,7 @@ import * as _ from "lodash";
 import { v4 as uuid } from "uuid";
 
 export interface ComponentClass {
-    new (props: ComponentProps, key: string): Component<ComponentProps, any>;
+    new (props: ComponentProps, key: string): Component;
 }
 
 export interface ComponentProps {
@@ -14,8 +14,8 @@ export interface ComponentState {
 }
 
 export default abstract class Component<
-    PropType extends ComponentProps = {},
-    StateType = void
+    PropType extends ComponentProps = any,
+    StateType = any
 > {
     public readonly id: string = uuid();
     public readonly key: string;

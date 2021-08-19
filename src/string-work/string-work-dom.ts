@@ -11,7 +11,7 @@ declare global {
 }
 
 export default class StringWorkDOM {
-    private elements: Component<ComponentProps, any>[] = [];
+    private elements: Component[] = [];
     constructor() {
         window.StringWorkDOM = this;
     }
@@ -99,7 +99,7 @@ export default class StringWorkDOM {
     }
 
     updateComponent(
-        component: Component<ComponentProps, ComponentState>,
+        component: Component,
         prevProps: ComponentProps,
         prevState: ComponentState
     ) {
