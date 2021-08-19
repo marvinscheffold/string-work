@@ -21,7 +21,7 @@ npm start
 ```javascript
 
 class Student extends Component {
-    constructor(props: ComponentProps, key: string) {
+    constructor(props: Props, key: string) {
         super(props, key);
     }
 
