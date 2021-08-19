@@ -1,6 +1,6 @@
 import Component from "../string-work/component";
 import { component } from "../string-work/string-work-dom";
-import Time from "./time/time";
+import Counter from "./counter/counter";
 
 export default class App extends Component {
     constructor(props: any, key: string) {
@@ -8,7 +8,7 @@ export default class App extends Component {
     }
     render(): string {
         return `<div class="container" style="padding-top: 24px">
-                ${component(Time, null, "12345")}
+                ${component(Counter, null, "12345")}
             </div>`;
     }
 }

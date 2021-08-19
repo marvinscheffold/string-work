@@ -2,19 +2,18 @@ import Component from "../../string-work/component";
 
 type Props = {
     onClick: Function;
+    text: string;
 };
 
 export default class Button extends Component {
+    props: Props;
     constructor(props: Props, key: string) {
         super(props, key);
     }
 
     render() {
         return `
-Millis on creation ${new Date().getMilliseconds().toString()}
-        <button type="button" class="btn btn-primary" onclick="${
-            this.self
-        }.props.callback()">Update parent time</button>
+        <button type="button" class="btn btn-primary" onclick="${this.self}.props.callback()">${this.props.text}</button>
 `;
     }
 }
