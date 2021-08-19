@@ -1,13 +1,13 @@
-# StringWork  
+# VirtualDom  
 
-StringWork is a react-like library for building user interfaces.<br>
+VirtualDom is a react-like library for building user interfaces.<br>
 
 * It´s core is based on JavaScript template literals
 * It is built with TypeScript 
 
 # Installation
 
-Right now StringWork is only available via this repository. 
+Right now VirtualDom is only available via this repository. 
 
 To view demo project execute following in the root directory:
 
@@ -42,7 +42,7 @@ stringWork.render(
 ``` 
 This example will render "Mark is 24 years old" into a container on the page.
 
-You´ll  notice that StringWork uses an HTML-like Syntax. 
+You´ll  notice that VirtualDom uses an HTML-like Syntax. 
 JavaScript template literals make that possible. Editors like WebStorm will highlight 
 the code just like in an HTML-Document.
 

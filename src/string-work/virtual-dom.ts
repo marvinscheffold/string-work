@@ -2,11 +2,11 @@ import Component, {ComponentClass, ComponentProps, ComponentState} from "./compo
 
 declare global {
     interface Window {
-        framework: StringWork
+        virtualDom: VirtualDom
     }
 }
 
-export default class StringWork{
+export default class VirtualDom {
     private virtualDom: Component[] = []
     constructor(){
 
@@ -90,14 +90,14 @@ export default class StringWork{
 }
 
 export function component(ComponentClass: ComponentClass, props: ComponentProps, key: string): string{
-    return window.framework.getComponentHTML(ComponentClass, props, key);
+    return window.virtualDom.getComponentHTML(ComponentClass, props, key);
 }
 
 export function initiateStringWork(){
-    if(window.framework === undefined){
-        window.framework = new StringWork();
-        return window.framework;
+    if(window.virtualDom === undefined){
+        window.virtualDom = new VirtualDom();
+        return window.virtualDom;
     }
-    console.log("StringWork is already initiated");
+    console.log("VirtualDom is already initiated");
     return null;
 }

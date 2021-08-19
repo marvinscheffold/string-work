@@ -13,12 +13,12 @@ export interface ComponentState {
 }
 
 export default abstract class Component{
-    public readonly id: string = window.framework.getNewComponentId();
+    public readonly id: string = window.virtualDom.getNewComponentId();
     public readonly key: string;
 
     public html: string;
 
-    protected readonly self: string = `window.framework.getComponentInstanceById('${this.id}')`;
+    protected readonly self: string = `window.virtualDom.getComponentInstanceById('${this.id}')`;
     protected state: ComponentState;
     protected props: ComponentProps;
 
@@ -31,7 +31,7 @@ export default abstract class Component{
         if(state === undefined){return}
         let prevState = this.state;
         this.state = Object.assign(this.state, state);
-        window.framework.updateComponent(this, this.props, prevState);
+        window.virtualDom.updateComponent(this, this.props, prevState);
     }
 
     public getState(): ComponentState{
