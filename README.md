@@ -32,9 +32,7 @@ class Student extends Component {
     }
 }
 
-let stringWork = initiateStringWork();
-
-stringWork.render(
+new StringWorkDOM().render(
     component(Student, {name: "Mark", age: 24}, "KEY"),
     document.getElementById("container")
 );
@@ -55,5 +53,7 @@ the code just like in an HTML-Document.
   before unmounting a component.
 * The library must be attached to the window. Otherwise component-html-elements 
 are not able to access their instances in the virtual dom. 
+  
+
   
 
