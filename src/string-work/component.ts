@@ -2,7 +2,7 @@ import * as _ from "lodash";
 import { v4 as uuid } from "uuid";
 
 export interface ComponentClass {
-    new (props: any, key: string): Component;
+    new (props: ComponentProps, key: string): Component<ComponentProps>;
 }
 
 export interface ComponentProps {
@@ -13,22 +13,25 @@ export interface ComponentState {
     [key: string]: any;
 }
 
-export default abstract class Component {
+export default abstract class Component<
+    PropType extends ComponentProps = {},
+    StateType = void
+> {
     public readonly id: string = uuid();
     public readonly key: string;
 
     public html: string;
 
     protected readonly self: string = `StringWorkDOM.getComponentInstanceById('${this.id}')`;
-    protected state: ComponentState;
-    protected props: ComponentProps;
+    protected state: StateType;
+    protected props: PropType;
 
-    protected constructor(props: ComponentProps, key: string) {
+    protected constructor(props: PropType, key: string) {
         this.props = props;
         this.key = key;
     }
 
-    protected setState(state: ComponentState) {
+    protected setState(state: StateType) {
         if (state === undefined) {
             return;
         }
@@ -37,26 +40,26 @@ export default abstract class Component {
         window.StringWorkDOM.updateComponent(this, this.props, prevState);
     }
 
-    public getState(): ComponentState {
+    public getState(): StateType {
         return this.state;
     }
 
-    public setProps(props: ComponentProps) {
+    public setProps(props: PropType) {
         if (props === undefined) {
             return;
         }
         this.props = props;
     }
 
-    public getProps(): ComponentProps {
+    public getProps(): PropType {
         return this.props;
     }
 
     // If state or props changed return true
     // Pass undefined to only compare one of both state or props
     public shouldComponentUpdate(
-        nextState: ComponentState = this.state,
-        nextProps: ComponentProps = this.props
+        nextState: StateType = this.state,
+        nextProps: PropType = this.props
     ): boolean {
         function customizer(obj1Value: any, obj2Value: any) {
             if (_.isFunction(obj1Value) && _.isFunction(obj2Value)) {
@@ -80,10 +83,7 @@ export default abstract class Component {
 
     public componentDidMount() {}
 
-    public componentDidUpdate(
-        prevProps: ComponentProps,
-        prevState: ComponentState
-    ) {}
+    public componentDidUpdate(prevProps: PropType, prevState: StateType) {}
 
     public componentWillUnmount() {}
 }

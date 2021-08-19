@@ -6,8 +6,7 @@ type State = {
     count: number;
 };
 
-export default class Counter extends Component {
-    state: State;
+export default class Counter extends Component<any, State> {
     constructor(props: any, key: string) {
         super(props, key);
 
