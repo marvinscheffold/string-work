@@ -17,29 +17,31 @@ export default class Counter extends Component<any, State> {
 
     render() {
         return `
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-            <h5 class="card-title">Current Count: ${this.state.count}</h5>
-            ${component(
-                Button,
-                {
-                    callback: () =>
-                        this.setState({ count: ++this.state.count }),
-                    text: "+",
-                },
-                "KEY2"
-            )}
-            ${component(
-                Button,
-                {
-                    callback: () =>
-                        this.setState({ count: --this.state.count }),
-                    text: "-",
-                },
-                "KEY3"
-            )}
+            <div class="card" style="width: 18rem; margin-bottom: 12px;">
+                <div class="card-body">
+                <h5 class="card-title">Current Count: ${this.state.count}</h5>
+                ${component(
+                    Button,
+                    {
+                        callback: () =>
+                            this.setState({ count: --this.state.count }),
+                        text: "-",
+                    },
+                    `${this.key}qwe`
+                )}
+                ${component(
+                    Button,
+                    {
+                        callback: () =>
+                            this.setState({ count: ++this.state.count }),
+                        text: "+",
+                    },
+                    `${this.key}asd`
+                )}
+               
+                </div>
             </div>
-        </div>
+
         `;
     }
 }

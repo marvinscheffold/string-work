@@ -14,14 +14,15 @@ export default class StringWorkDOM {
     private elements: Component[] = [];
     constructor() {
         window.StringWorkDOM = this;
+        let style = document.createElement("style");
+        style.appendChild(
+            document.createTextNode("string-work-component{display:contents;}")
+        );
+        document.getElementsByTagName("head")[0].appendChild(style);
     }
 
     render(html: string, element: HTMLElement) {
         element.innerHTML = html;
-    }
-
-    getNewComponentId(): string {
-        return this.elements.length.toString();
     }
 
     getComponentHTML(
@@ -68,9 +69,7 @@ export default class StringWorkDOM {
         dataKey: string,
         value: string
     ) {
-        let htmlStart = html.substring(0, html.indexOf(">"));
-        let htmlEnd = html.substring(html.indexOf(">"), html.length);
-        return htmlStart + ` data-${dataKey}="${value}"` + htmlEnd;
+        return `<string-work-component data-${dataKey}="${value}">${html}</string-work-component>`;
     }
 
     private componentIsInStringWorkDOM(key: string): boolean {
