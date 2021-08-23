@@ -21,8 +21,8 @@ npm start
 ```javascript
 
 class Student extends Component {
-    constructor(props: Props, key: string) {
-        super(props, key);
+    constructor(props: Props) {
+        super(props);
     }
 
     render() {
@@ -33,7 +33,7 @@ class Student extends Component {
 }
 
 new StringWorkDOM().render(
-    component(Student, {name: "Mark", age: 24}, "KEY"),
+    component(Student, {name: "Mark", age: 24}),
     document.getElementById("container")
 );
 

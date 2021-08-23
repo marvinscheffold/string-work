@@ -6,8 +6,8 @@ type Props = {
 };
 
 export default class Button extends Component<Props> {
-    constructor(props: Props, key: string) {
-        super(props, key);
+    constructor(props: Props) {
+        super(props);
     }
 
     render() {

@@ -1,8 +1,7 @@
 import * as _ from "lodash";
-import { v4 as uuid } from "uuid";
 
 export interface ComponentClass {
-    new (props: ComponentProps, key: string): Component;
+    new (props: ComponentProps): Component;
 }
 
 export interface ComponentProps {
@@ -17,27 +16,39 @@ export default abstract class Component<
     PropType extends ComponentProps = any,
     StateType = any
 > {
-    public readonly id: string = uuid();
     public readonly key: string;
 
     public html: string;
 
-    protected readonly self: string = `StringWorkDOM.getComponentInstanceById('${this.id}')`;
+    protected readonly self: string;
     protected state: StateType;
     protected props: PropType;
 
-    protected constructor(props: PropType, key: string) {
+    protected constructor(props: PropType) {
         this.props = props;
-        this.key = key;
+        this.key = props.key;
+        this.self = `StringWorkDOM.getComponentInstance('${this.key}')`;
     }
 
-    protected setState(state: StateType) {
-        if (state === undefined) {
-            return;
+    protected setState(nextState: StateType) {
+        if (
+            nextState === undefined ||
+            nextState === null ||
+            !(typeof nextState === "object")
+        ) {
+            throw Error(
+                "setState(...): takes an object of state variables to update"
+            );
         }
-        let prevState = this.state;
-        this.state = Object.assign(this.state, state);
-        window.StringWorkDOM.updateComponent(this, this.props, prevState);
+
+        const shouldUpdate = this.shouldComponentUpdate(this.props, nextState);
+
+        const prevState = { ...this.state };
+        this.state = Object.assign(this.state, nextState);
+
+        if (shouldUpdate) {
+            window.StringWorkDOM.updateComponent(this, this.props, prevState);
+        }
     }
 
     public getState(): StateType {
@@ -48,7 +59,7 @@ export default abstract class Component<
         if (props === undefined) {
             return;
         }
-        this.props = props;
+        this.props = { ...props };
     }
 
     public getProps(): PropType {
@@ -58,8 +69,8 @@ export default abstract class Component<
     // If state or props changed return true
     // Pass undefined to only compare one of both state or props
     public shouldComponentUpdate(
-        nextState: StateType = this.state,
-        nextProps: PropType = this.props
+        nextProps: PropType = this.props,
+        nextState: StateType = this.state
     ): boolean {
         function customizer(obj1Value: any, obj2Value: any) {
             if (_.isFunction(obj1Value) && _.isFunction(obj2Value)) {

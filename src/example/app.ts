@@ -1,24 +1,23 @@
 import Component from "../string-work/component";
-import { component } from "../string-work/string-work-dom";
-import Counter from "./counter/counter";
-import { v4 as uuid } from "uuid";
+import { c } from "../string-work/string-work-dom2";
 import Button from "./button/button";
+import Counter from "./counter/counter";
 
 type State = {
     clicked: boolean;
 };
 
 export default class App extends Component<any, State> {
-    constructor(props: any, key: string) {
-        super(props, key);
+    constructor(props: any) {
+        super(props);
         this.state = {
             clicked: false,
         };
     }
-    render(): string {
+    render() {
         return `
             <div class="container" style="padding-top: 24px">    
-                ${component(Counter, null, "123")}
+               ${c(Counter, {})}
             </div>`;
     }
 }

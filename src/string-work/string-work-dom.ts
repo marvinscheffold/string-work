@@ -1,3 +1,5 @@
+/*
+
 import Component, {
     ComponentClass,
     ComponentProps,
@@ -121,3 +123,5 @@ export function component(
 ): string {
     return window.StringWorkDOM.getComponentHTML(ComponentClass, props, key);
 }
+
+*/
