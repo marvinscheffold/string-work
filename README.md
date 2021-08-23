@@ -46,13 +46,14 @@ the code just like in an HTML-Document.
 
 # Issues 
 
-* To differentiate component instances a constant key-parameter 
-  passed in from the parent component is still necessary. 
-  Ideally this will work automatically.
+* After a render string-work loses focus on the activeElement.
 * So far there is no call to the method `componentWillUnmount()` 
   before unmounting a component.
 * The library must be attached to the window. Otherwise component-html-elements 
 are not able to access their instances in the virtual dom. 
+  
+
+
   
 
 
