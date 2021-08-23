@@ -82,7 +82,7 @@ export default abstract class Component<
     }
 
     /*
-     * Lifecicle methods
+     * Lifecycle methods
      */
     abstract render(): string;
 
