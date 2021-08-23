@@ -27,6 +27,8 @@ type VirtualDomComponent = {
 
 export class StringWorkDOM {
     private readonly virtualDomComponents: VirtualDomComponent[];
+    private activeElement: any;
+
     constructor() {
         this.virtualDomComponents = [];
         window.StringWorkDOM = this;
@@ -84,6 +86,10 @@ export class StringWorkDOM {
         return null;
     }
 
+    private onBeforeRenderComponent() {
+        this.activeElement = document.activeElement;
+    }
+
     private renderComponent(component: Component): void {
         const html = component.render();
         this.saveComponentSnapshot(component, html);
@@ -92,12 +98,22 @@ export class StringWorkDOM {
         )[0].innerHTML = html;
     }
 
+    private onAfterRenderComponent() {
+        const inputs = ["input", "select", "button", "textarea"];
+        if (inputs.indexOf(this.activeElement.tagName.toLowerCase()) > -1) {
+            console.log(this.activeElement);
+            this.activeElement.focus();
+        }
+    }
+
     public updateComponent(
         component: Component,
         prevProps: ComponentProps,
         prevState: ComponentState
     ): void {
+        this.onBeforeRenderComponent();
         this.renderComponent(component);
+        this.onAfterRenderComponent();
         component.componentDidUpdate(prevProps, prevState);
     }
 

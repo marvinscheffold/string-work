@@ -1,5 +1,5 @@
 import { StringWorkDOM } from "./string-work/string-work-dom2";
-import App from "./example/app";
+import App from "./examples/app";
 import { c } from "./string-work/string-work-dom2";
 
 function main() {
