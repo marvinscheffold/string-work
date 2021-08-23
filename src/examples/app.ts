@@ -1,5 +1,5 @@
 import Component from "../string-work/component";
-import { c } from "../string-work/string-work-dom2";
+import { c } from "../string-work/string-work-dom";
 import TemperatureConverter from "./temperature-converter/temperature-converter";
 
 type State = {

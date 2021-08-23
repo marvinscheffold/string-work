@@ -1,6 +1,6 @@
 import Component from "../../string-work/component";
 import Button from "../button/button";
-import { c } from "../../string-work/string-work-dom2";
+import { c } from "../../string-work/string-work-dom";
 
 type State = {
     count: number;

@@ -1,6 +1,6 @@
 import Component from "../../string-work/component";
 import TemperatureInput from "./temperature-input";
-import { c } from "../../string-work/string-work-dom2";
+import { c } from "../../string-work/string-work-dom";
 
 type State = {
     value: string;
