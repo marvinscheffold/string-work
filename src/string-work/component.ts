@@ -18,8 +18,6 @@ export default abstract class Component<
 > {
     public readonly key: string;
 
-    public html: string;
-
     protected readonly self: string;
     protected state: StateType;
     protected props: PropType;
@@ -87,10 +85,6 @@ export default abstract class Component<
      * Lifecicle methods
      */
     abstract render(): string;
-
-    public componentDidRender(html: string) {
-        this.html = html;
-    }
 
     public componentDidMount() {}
 
