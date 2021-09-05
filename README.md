@@ -46,7 +46,6 @@ the code just like in an HTML-Document.
 
 # Issues 
 
-* After a render string-work loses focus on the activeElement.
 * So far there is no call to the method `componentWillUnmount()` 
   before unmounting a component.
 * The library must be attached to the window. Otherwise component-html-elements 
