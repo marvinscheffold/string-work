@@ -5,6 +5,7 @@ import Component, {
     ComponentState,
 } from "./component";
 import { createComponentHtmlShell } from "./string-work-helper";
+import { updateComponentNodes } from "./string-work-diffing";
 
 declare global {
     interface Window {
@@ -72,6 +73,7 @@ export class StringWorkDOM {
 
     private renderComponent(component: Component): void {
         const nextHtml = component.render();
+        updateComponentNodes(component, nextHtml);
     }
 
     public updateComponent(

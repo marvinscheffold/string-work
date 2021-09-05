@@ -17,7 +17,7 @@ export default class App extends Component<any, State> {
     render() {
         return `
             <div class="container" style="padding-top: 24px">    
-               ${c(TemperatureConverter, {}, this)}
+               ${c(TemperatureConverter, { key: "123456" }, this)}
             </div>`;
     }
 }

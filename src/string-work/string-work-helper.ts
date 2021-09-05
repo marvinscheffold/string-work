@@ -3,11 +3,16 @@ import { component } from "./constants";
 import DATA_KEY = component.DATA_KEY;
 import TAG = component.TAG;
 
+const getComponentShellNode = (component: Component): Node => {
+    return document.querySelector(`[${DATA_KEY}="${component.key}"]`);
+};
+
 /**
  * Returns current list of dom nodes for passed component
  * @param component
  */
-const getLiveComponentNodes = (component: Component): NodeList => {
+const getComponentChildNodes = (component: Component): NodeList => {
+    console.log(component);
     return document.querySelector(`[${DATA_KEY}="${component.key}"]`)
         .childNodes;
 };
@@ -16,7 +21,7 @@ const getLiveComponentNodes = (component: Component): NodeList => {
  * Returns a list of nodes rendered out of the passed html string
  * @param html
  */
-const createVirtualComponentNodes = (html: string): NodeList => {
+const createVirtualComponentChildNodes = (html: string): NodeList => {
     const template = document.createElement("template");
     template.innerHTML = html;
     return template.content.childNodes;
@@ -33,7 +38,8 @@ const createComponentHtmlShell = (component: Component): string => {
 };
 
 export {
-    getLiveComponentNodes,
-    createVirtualComponentNodes,
+    getComponentShellNode,
+    getComponentChildNodes,
+    createVirtualComponentChildNodes,
     createComponentHtmlShell,
 };

@@ -1,18 +1,18 @@
 /**
- * Returns false if ElementNode has been replaces
+ * Returns false if ElementNode has been replaced
  * And it is not necessary to keep traversing through children
  * @param liveElementNode
  * @param virtualElementNode
  */
 const updateElementNode = (
-    liveElementNode: Element,
+    elementNode: Element,
     virtualElementNode: Element
 ): boolean => {
-    if (shouldReplaceElementNode(liveElementNode, virtualElementNode)) {
-        replaceElementNode(liveElementNode, virtualElementNode);
+    if (shouldReplaceElementNode(elementNode, virtualElementNode)) {
+        replaceElementNode(elementNode, virtualElementNode);
         return false;
     }
-    updateElementNodeAttributes(liveElementNode, virtualElementNode);
+    updateElementNodeAttributes(elementNode, virtualElementNode);
     return true;
 };
 
@@ -22,16 +22,16 @@ const updateElementNode = (
  * @param virtualElementNode
  */
 const updateElementNodeAttributes = (
-    liveElementNode: Element,
+    elementNode: Element,
     virtualElementNode: Element
 ) => {
     // If element type is the same loop trough all attributes
     for (let i = 0; i < virtualElementNode.attributes.length; i++) {
-        let attribute = virtualElementNode.attributes[i];
+        const attribute = virtualElementNode.attributes[i];
         if (attribute.specified) {
-            liveElementNode.setAttribute(attribute.name, attribute.value);
+            elementNode.setAttribute(attribute.name, attribute.value);
         } else {
-            liveElementNode.removeAttribute(attribute.name);
+            elementNode.removeAttribute(attribute.name);
         }
     }
 };
@@ -52,7 +52,7 @@ const shouldReplaceElementNode = (
     liveElementNode: Element,
     virtualElementNode: Element
 ): boolean => {
-    return liveElementNode.tagName === virtualElementNode.tagName;
+    return liveElementNode.tagName !== virtualElementNode.tagName;
 };
 
 export { updateElementNode };
