@@ -5,5 +5,4 @@ import { c } from "./string-work/string-work-dom";
 function main() {
     new StringWorkDOM().render(c(App), document.getElementById("root"));
 }
-
 main();

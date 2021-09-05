@@ -30,16 +30,28 @@ export default class TemperatureConverter extends Component<any, State> {
         const fahrenheit =
             scale === "c" ? tryConvert(value, toFahrenheit) : value;
         return `
-            ${c(TemperatureInput, {
-                label: "Celcius",
-                onChange: (value: string) => this.handleCelsiusChange(value),
-                value: celsius,
-            })} 
-            ${c(TemperatureInput, {
-                label: "Fahrenheit",
-                onChange: (value: string) => this.handleFahrenheitChange(value),
-                value: fahrenheit,
-            })}
+            ${c(
+                TemperatureInput,
+                {
+                    label: "Celcius",
+                    onChange: (value: string) =>
+                        this.handleCelsiusChange(value),
+                    value: celsius,
+                    key: "celcius",
+                },
+                this
+            )} 
+            ${c(
+                TemperatureInput,
+                {
+                    label: "Fahrenheit",
+                    onChange: (value: string) =>
+                        this.handleFahrenheitChange(value),
+                    value: fahrenheit,
+                    key: "fahrenheit",
+                },
+                this
+            )}
         `;
     }
 }

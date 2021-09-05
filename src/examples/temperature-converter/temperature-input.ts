@@ -18,10 +18,9 @@ export default class TemperatureInput extends Component<Props> {
     }
 
     render() {
-        const value = this.props.value;
         return `
             <h3>Enter Temperature in ${this.props.label}</h3>
-            <input class="form-control form-control-lg" type="text" value="${this.props.value}" oninput="${this.self}.handleChange(this.value)"/>
+            <input id="input_${this.key}"class="form-control form-control-lg" type="text" value="${this.props.value}" oninput="${this.self}.handleChange(this.value)"/>
         `;
     }
 }

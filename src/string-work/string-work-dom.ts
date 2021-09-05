@@ -4,9 +4,7 @@ import Component, {
     ComponentProps,
     ComponentState,
 } from "./component";
-import { component } from "./constants";
-import TAG = component.TAG;
-import DATA_KEY = component.DATA_KEY;
+import { createComponentHtmlShell } from "./string-work-helper";
 
 declare global {
     interface Window {
@@ -27,7 +25,6 @@ type VirtualDomComponent = {
 
 export class StringWorkDOM {
     private readonly virtualDomComponents: VirtualDomComponent[];
-    private activeElement: any;
 
     constructor() {
         this.virtualDomComponents = [];
@@ -52,19 +49,6 @@ export class StringWorkDOM {
         element.innerHTML = html;
     }
 
-    private getComponentHTMLShell(component: Component): string {
-        return `<${TAG} ${DATA_KEY}="${component.key}"></${TAG}>`;
-    }
-
-    private saveComponentSnapshot(component: Component, snapshot: string) {
-        for (let i in this.virtualDomComponents) {
-            if (this.virtualDomComponents[i].component.key === component.key) {
-                this.virtualDomComponents[i].snapshot = snapshot;
-                break;
-            }
-        }
-    }
-
     private createComponentInstance(
         Class: ComponentClass,
         props: ComponentProps
@@ -86,24 +70,8 @@ export class StringWorkDOM {
         return null;
     }
 
-    private onBeforeRenderComponent() {
-        this.activeElement = document.activeElement;
-    }
-
     private renderComponent(component: Component): void {
-        const html = component.render();
-        this.saveComponentSnapshot(component, html);
-        document.querySelectorAll(
-            `[${DATA_KEY}="${component.key}"]`
-        )[0].innerHTML = html;
-    }
-
-    private onAfterRenderComponent() {
-        const inputs = ["input", "select", "button", "textarea"];
-        if (inputs.indexOf(this.activeElement.tagName.toLowerCase()) > -1) {
-            console.log(this.activeElement);
-            this.activeElement.focus();
-        }
+        const nextHtml = component.render();
     }
 
     public updateComponent(
@@ -111,9 +79,7 @@ export class StringWorkDOM {
         prevProps: ComponentProps,
         prevState: ComponentState
     ): void {
-        this.onBeforeRenderComponent();
         this.renderComponent(component);
-        this.onAfterRenderComponent();
         component.componentDidUpdate(prevProps, prevState);
     }
 
@@ -124,28 +90,35 @@ export class StringWorkDOM {
 
     private inferComponentKey(
         Class: ComponentClass,
-        props: ComponentProps
+        props: ComponentProps,
+        context: any
     ): string {
-        let string = Class.toString() + JSON.stringify(props);
-        return string.hashCode();
+        // If user passed key we use it
+        if (props.key) {
+            return props.key;
+        }
+        if (context !== null && context.key !== null) {
+            return (Class.toString() + context.key).hashCode();
+        }
+        return Class.toString().hashCode();
     }
 
-    private addKeyToProps(props: ComponentProps, key: string): ComponentProps {
-        return { key: key, ...props };
-    }
-
-    public component(Class: ComponentClass, props: ComponentProps): string {
-        const key = this.inferComponentKey(Class, props);
+    public component(
+        Class: ComponentClass,
+        props: ComponentProps,
+        context: any
+    ): string {
+        const key = this.inferComponentKey(Class, props, context);
         let component = this.getComponentInstance(key);
 
         // New component to be mounted
         if (component === null) {
-            component = this.createComponentInstance(
-                Class,
-                this.addKeyToProps(props, key)
-            );
+            component = this.createComponentInstance(Class, {
+                key: key,
+                ...props,
+            });
             try {
-                return this.getComponentHTMLShell(component);
+                return createComponentHtmlShell(component);
             } finally {
                 setTimeout(() => this.mountComponent(component), 0);
             }
@@ -155,7 +128,7 @@ export class StringWorkDOM {
             const prevState = component.getState();
             component.setProps(props);
             try {
-                return this.getComponentHTMLShell(component);
+                return createComponentHtmlShell(component);
             } finally {
                 setTimeout(
                     () => this.updateComponent(component, prevProps, prevState),
@@ -166,6 +139,10 @@ export class StringWorkDOM {
     }
 }
 
-export function c(Class: ComponentClass, props: ComponentProps = {}): string {
-    return window.StringWorkDOM.component(Class, props);
+export function c(
+    Class: ComponentClass,
+    props: ComponentProps = {},
+    context: any = null
+): string {
+    return window.StringWorkDOM.component(Class, props, context);
 }
