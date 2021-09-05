@@ -13,7 +13,6 @@ export default class TemperatureInput extends Component<Props> {
     }
 
     handleChange(value: string) {
-        console.log("handleChange", value);
         this.props.onChange(value);
     }
 

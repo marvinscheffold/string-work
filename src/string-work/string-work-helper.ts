@@ -1,7 +1,7 @@
 import Component from "./component";
-import { component } from "./constants";
-import DATA_KEY = component.DATA_KEY;
-import TAG = component.TAG;
+import { StringWorkElement } from "./constants";
+import DATA_KEY = StringWorkElement.DATA_KEY;
+import TAG = StringWorkElement.TAG;
 
 const getComponentShellNode = (component: Component): Node => {
     return document.querySelector(`[${DATA_KEY}="${component.key}"]`);
@@ -12,7 +12,6 @@ const getComponentShellNode = (component: Component): Node => {
  * @param component
  */
 const getComponentChildNodes = (component: Component): NodeList => {
-    console.log(component);
     return document.querySelector(`[${DATA_KEY}="${component.key}"]`)
         .childNodes;
 };
@@ -37,9 +36,19 @@ const createComponentHtmlShell = (component: Component): string => {
     return `<${TAG} ${DATA_KEY}="${component.key}"></${TAG}>`;
 };
 
+/**
+ * Returns object property by key
+ * @param key
+ */
+const getObjectPropertyByKey = (object: any, key: string) => {
+    const getKeyValue = (key: string) => (obj: Record<string, any>) => obj[key];
+    return getKeyValue(key)(object);
+};
+
 export {
     getComponentShellNode,
     getComponentChildNodes,
     createVirtualComponentChildNodes,
     createComponentHtmlShell,
+    getObjectPropertyByKey,
 };

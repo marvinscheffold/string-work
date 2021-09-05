@@ -4,8 +4,8 @@ import {
     getComponentChildNodes,
     getComponentShellNode,
 } from "./string-work-helper";
-import { updateElementNode } from "./element-node";
-import { updateTextNode } from "./text-node";
+import { updateElementNode } from "./nodes/element-node";
+import { updateTextNode } from "./nodes/text-node";
 
 const updateComponentNodes = (component: Component, nextHtml: string) => {
     // The node of the html component wrapper
@@ -13,7 +13,8 @@ const updateComponentNodes = (component: Component, nextHtml: string) => {
     // The current state of the component in the Dom
     const childNodes = getComponentChildNodes(component);
     // The next state the component should be in
-    const virtualChildNodes = createVirtualComponentChildNodes(nextHtml);
+    const virtualChildNodes = createVirtualComponentChildNodes(nextHtml.trim());
+    console.log("updateComponentNodes", component, nextHtml);
     updateChildNodes(childNodes, virtualChildNodes, parentNode);
 };
 
@@ -26,17 +27,17 @@ const updateChildNodes = (
         virtualChildNodes.length,
         childNodes.length
     );
-
+    console.log("updateChildNodes", childNodes, virtualChildNodes, parentNode);
     for (let i = 0; i < maximumNumberOfNodes; i++) {
         const childNode = childNodes[i];
         const virtualChildNode = virtualChildNodes[i];
 
-        if (childNode !== undefined && virtualChildNodes !== undefined) {
+        if (childNode !== undefined && virtualChildNode !== undefined) {
             updateNode(childNode, virtualChildNode, parentNode);
             continue;
         }
         if (childNode !== undefined && virtualChildNode === undefined) {
-            removeNode(childNode, parentNode);
+            // removeNode(childNode, parentNode);
             continue;
         }
         if (childNode === undefined && virtualChildNode !== undefined) {
@@ -47,6 +48,7 @@ const updateChildNodes = (
 };
 
 const updateNode = (node: Node, virtualNode: Node, parentNode: Node) => {
+    console.log("updateNode", node, virtualNode);
     if (shouldReplaceNode(node, virtualNode)) {
         parentNode.replaceChild(node, virtualNode);
         // Return here -> no need to look through children
@@ -57,13 +59,13 @@ const updateNode = (node: Node, virtualNode: Node, parentNode: Node) => {
     switch (virtualNode.nodeType) {
         // element node
         case 1:
-            let replacedElementNode = !updateElementNode(
+            let shouldNotTraverseChildren = !updateElementNode(
                 <Element>node,
                 <Element>virtualNode
             );
-            if (replacedElementNode) {
+            if (shouldNotTraverseChildren) {
                 // Return here -> no need to look through children
-                // Element node has been replaced
+                // Element node has been replaced or is string-work-element
                 return;
             }
             break;

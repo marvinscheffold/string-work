@@ -129,6 +129,7 @@ export class StringWorkDOM {
             const prevProps = component.getProps();
             const prevState = component.getState();
             component.setProps(props);
+            console.log("component", component);
             try {
                 return createComponentHtmlShell(component);
             } finally {

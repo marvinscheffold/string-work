@@ -16,10 +16,12 @@ export default class TemperatureConverter extends Component<any, State> {
     }
 
     handleCelsiusChange(value: string) {
+        console.log("handleCelsiusChange", value);
         this.setState({ scale: "c", value });
     }
 
     handleFahrenheitChange(value: string) {
+        console.log("handleFahrenheitChange", value);
         this.setState({ scale: "f", value });
     }
 
@@ -29,6 +31,9 @@ export default class TemperatureConverter extends Component<any, State> {
         const celsius = scale === "f" ? tryConvert(value, toCelsius) : value;
         const fahrenheit =
             scale === "c" ? tryConvert(value, toFahrenheit) : value;
+
+        console.log("celcius", celsius, "fahrenheit", fahrenheit);
+
         return `
             ${c(
                 TemperatureInput,

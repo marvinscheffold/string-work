@@ -1,3 +1,7 @@
+import { StringWorkElement } from "../constants";
+import TAG = StringWorkElement.TAG;
+import { getObjectPropertyByKey } from "../string-work-helper";
+
 /**
  * Returns false if ElementNode has been replaced
  * And it is not necessary to keep traversing through children
@@ -12,13 +16,17 @@ const updateElementNode = (
         replaceElementNode(elementNode, virtualElementNode);
         return false;
     }
+    if (isStringWorkElement(elementNode)) {
+        return false;
+    }
     updateElementNodeAttributes(elementNode, virtualElementNode);
+    updateElementNodeProperties(elementNode, virtualElementNode);
     return true;
 };
 
 /**
  * Updates or deletes attributes on liveElementNode
- * @param liveElementNode
+ * @param elementNode
  * @param virtualElementNode
  */
 const updateElementNodeAttributes = (
@@ -37,22 +45,41 @@ const updateElementNodeAttributes = (
 };
 
 /**
+ * Loops through virtualElementNode properties
+ * And updates editable ones on elementNode
+ * @param elementNode
+ * @param virtualElementNode
+ */
+const updateElementNodeProperties = (
+    elementNode: Element,
+    virtualElementNode: Element
+) => {
+    // @ts-ignore
+    elementNode.value = virtualElementNode.value;
+    elementNode.className = virtualElementNode.className;
+};
+
+/**
  * Replaces the complete liveElementNode with the virtualElementNode
  * @param liveElementNode
  * @param virtualElementNode
  */
 const replaceElementNode = (
-    liveElementNode: Element,
+    elementNode: Element,
     virtualElementNode: Element
 ): void => {
-    liveElementNode.replaceWith(virtualElementNode);
+    elementNode.replaceWith(virtualElementNode);
+};
+
+const isStringWorkElement = (elementNode: Element) => {
+    return elementNode.tagName === TAG;
 };
 
 const shouldReplaceElementNode = (
-    liveElementNode: Element,
+    elementNode: Element,
     virtualElementNode: Element
 ): boolean => {
-    return liveElementNode.tagName !== virtualElementNode.tagName;
+    return elementNode.tagName !== virtualElementNode.tagName;
 };
 
 export { updateElementNode };

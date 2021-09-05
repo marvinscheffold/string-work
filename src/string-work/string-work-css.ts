@@ -1,5 +1,5 @@
-import { component } from "./constants";
-import TAG = component.TAG;
+import { StringWorkElement } from "./constants";
+import TAG = StringWorkElement.TAG;
 
 export function addStringWorkCSSToDOM() {
     const styleTag = document.createElement("style");
