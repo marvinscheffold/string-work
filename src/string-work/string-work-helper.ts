@@ -3,6 +3,11 @@ import { StringWorkElement } from "./constants";
 import DATA_KEY = StringWorkElement.DATA_KEY;
 import TAG = StringWorkElement.TAG;
 
+/**
+ * Returns the component html shell
+ * <string-work-element></string-work-element>
+ * @param component
+ */
 const getComponentShellNode = (component: Component): Node => {
     return document.querySelector(`[${DATA_KEY}="${component.key}"]`);
 };

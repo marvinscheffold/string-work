@@ -14,7 +14,6 @@ const updateComponentNodes = (component: Component, nextHtml: string) => {
     const childNodes = getComponentChildNodes(component);
     // The next state the component should be in
     const virtualChildNodes = createVirtualComponentChildNodes(nextHtml.trim());
-    console.log("updateComponentNodes", component, nextHtml);
     updateChildNodes(childNodes, virtualChildNodes, parentNode);
 };
 
@@ -23,21 +22,29 @@ const updateChildNodes = (
     virtualChildNodes: NodeList,
     parentNode: Node
 ) => {
-    let maximumNumberOfNodes = Math.max(
+    let numberOfNodesToLookAt = Math.max(
         virtualChildNodes.length,
         childNodes.length
     );
-    console.log("updateChildNodes", childNodes, virtualChildNodes, parentNode);
-    for (let i = 0; i < maximumNumberOfNodes; i++) {
-        const childNode = childNodes[i];
-        const virtualChildNode = virtualChildNodes[i];
+
+    let childNodesArray = [];
+    let virtualChildNodesArray = [];
+
+    for (let x = 0; x < numberOfNodesToLookAt; x++) {
+        childNodesArray.push(childNodes[x]);
+        virtualChildNodesArray.push(virtualChildNodes[x]);
+    }
+
+    for (let i = 0; i < numberOfNodesToLookAt; i++) {
+        const childNode = childNodesArray[i];
+        const virtualChildNode = virtualChildNodesArray[i];
 
         if (childNode !== undefined && virtualChildNode !== undefined) {
             updateNode(childNode, virtualChildNode, parentNode);
             continue;
         }
         if (childNode !== undefined && virtualChildNode === undefined) {
-            // removeNode(childNode, parentNode);
+            removeNode(childNode, parentNode);
             continue;
         }
         if (childNode === undefined && virtualChildNode !== undefined) {
@@ -48,9 +55,8 @@ const updateChildNodes = (
 };
 
 const updateNode = (node: Node, virtualNode: Node, parentNode: Node) => {
-    console.log("updateNode", node, virtualNode);
     if (shouldReplaceNode(node, virtualNode)) {
-        parentNode.replaceChild(node, virtualNode);
+        parentNode.replaceChild(virtualNode, node);
         // Return here -> no need to look through children
         // Whole node has been replaced
         return;
