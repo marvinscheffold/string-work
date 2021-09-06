@@ -69,7 +69,7 @@ new StringWorkDOM().render(
 
 ``` 
 
-This second example will render "Mr. Anderson is is teaching Math" into a container on the page.
+This second example will render "Mr. Anderson is teaching Math" into a container on the page.
 Here I used a functional string-work-component.
 
 # Issues 
