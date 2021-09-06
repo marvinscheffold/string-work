@@ -41,8 +41,7 @@ class Student extends Component {
 }
 
 new StringWorkDOM().render(
-    c(Student, { name: "Mark", age: 24 }),
-    
+    c(Student, { name: "Mark", age: 24 }), 
     document.getElementById("container")
 );
 
