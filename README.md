@@ -41,7 +41,8 @@ class Student extends Component {
 }
 
 new StringWorkDOM().render(
-    component(Student, { name: "Mark", age: 24 }),
+    c(Student, { name: "Mark", age: 24 }),
+    
     document.getElementById("container")
 );
 
@@ -76,7 +77,7 @@ Here I used a functional string-work-component.
 
 * So far there is no call to the method `componentWillUnmount()` 
   before unmounting a component.
-* The library must be attached to the window. Otherwise component-html-elements 
+* The library must be attached to the window. Otherwise class components 
 are not able to access their instances in the virtual dom. 
   
 
