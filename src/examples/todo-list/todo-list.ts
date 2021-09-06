@@ -1,5 +1,5 @@
 import Component from "../../string-work/component";
-import { Todo } from "./todo";
+import { TodoItem } from "./todo-item";
 
 type Todo = {
     userId: number;
@@ -13,7 +13,7 @@ type State = {
     loading: boolean;
 };
 
-export class TodoList extends Component<any, State> {
+export default class TodoList extends Component<any, State> {
     constructor(props: any) {
         super(props);
         this.state = {
@@ -43,7 +43,10 @@ export class TodoList extends Component<any, State> {
 
         return this.state.todos
             .map((todo) => {
-                return Todo({ title: todo.title, completed: todo.completed });
+                return TodoItem({
+                    title: todo.title,
+                    completed: todo.completed,
+                });
             })
             .join("");
     }

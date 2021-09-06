@@ -3,7 +3,7 @@ type Props = {
     completed: boolean;
 };
 
-export function Todo(props: Props) {
+export function TodoItem(props: Props) {
     let completed = "";
     if (props.completed) {
         completed = `

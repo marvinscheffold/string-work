@@ -2,7 +2,7 @@ import Component from "../string-work/component";
 import { c } from "../string-work/string-work-dom";
 import TemperatureConverter from "./temperature-converter/temperature-converter";
 import Counter from "./counter/counter";
-import { TodoList } from "./todo-list/todo-list";
+import TodoList from "./todo-list/todo-list";
 
 type State = {
     clicked: boolean;
