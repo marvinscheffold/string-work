@@ -5,7 +5,7 @@ StringWork is a react-like library for building user interfaces.<br>
 * It´s core is based on JavaScript template literals
 * It is built with TypeScript
 
-#Why?
+# Why?
 
 I really like React and in order to understand it even better 
 I started this project. I do not intend to create a widely used 
