@@ -1,6 +1,7 @@
 import Component from "../../string-work/component";
 import { c } from "../../string-work/string-work-dom";
 import Button from "../button/button";
+import { ListItem } from "./list-item";
 
 type State = {
     entries: number;
@@ -20,7 +21,7 @@ export default class FilterableList extends Component<any, State> {
     render(): string {
         let entries = "";
         for (let i = 0; i < this.state.entries; i++) {
-            entries += `<li class="list-group-item">Item Number ${i + 1}</li>`;
+            entries += ListItem({ text: `Item Number ${i + 1}` });
         }
 
         return `

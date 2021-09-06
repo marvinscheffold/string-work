@@ -4,18 +4,12 @@ import Component, {
     ComponentProps,
     ComponentState,
 } from "./component";
-import { createComponentHtmlShell } from "./string-work-helper";
+import { createComponentHtmlShell, getHash } from "./string-work-helper";
 import { updateComponentNodes } from "./string-work-diffing";
 
 declare global {
     interface Window {
         StringWorkDOM: StringWorkDOM;
-    }
-}
-
-declare global {
-    interface String {
-        hashCode: Function;
     }
 }
 
@@ -89,7 +83,7 @@ export class StringWorkDOM {
         if (context !== null && context.key !== null) {
             return getHash(Class.toString() + context.key);
         }
-        return Class.toString().hashCode();
+        return getHash(Class.toString());
     }
 
     public component(
