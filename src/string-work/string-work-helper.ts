@@ -41,9 +41,29 @@ const createComponentHtmlShell = (component: Component): string => {
     return `<${TAG_NAME} ${DATA_KEY}="${component.key}"></${TAG_NAME}>`;
 };
 
+/**
+ * Used for generating component key out of component props,
+ * component definition and parent context
+ * @param str
+ */
+const getHash = (str: string): string => {
+    let hash = 0,
+        i,
+        char;
+
+    if (str.length === 0) return hash.toString().trim();
+    for (i = 0; i < str.length; i++) {
+        char = str.charCodeAt(i);
+        hash = (hash << 5) - hash + char;
+        hash |= 0; // Convert to 32bit integer
+    }
+    return hash.toString().trim();
+};
+
 export {
     getComponentShellNode,
     getComponentChildNodes,
     createVirtualComponentChildNodes,
     createComponentHtmlShell,
+    getHash,
 };
