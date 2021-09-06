@@ -41,7 +41,7 @@ class Student extends Component {
 }
 
 new StringWorkDOM().render(
-    component(Student, {name: "Mark", age: 24}),
+    component(Student, { name: "Mark", age: 24 }),
     document.getElementById("container")
 );
 
@@ -63,7 +63,7 @@ function Teacher(props: Props) {
 }
 
 new StringWorkDOM().render(
-    component(Student, {name: "Mr. Anderson", subject: "Math"}),
+    Teacher({ name: "Mr. Anderson", subject: "Math" }),
     document.getElementById("container")
 );
 
