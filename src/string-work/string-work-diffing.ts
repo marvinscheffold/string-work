@@ -29,7 +29,12 @@ const updateChildNodes = (
 
     let childNodesArray = [];
     let virtualChildNodesArray = [];
-
+    /*
+     * We need to save each node reference individually in an
+     * Array so that the removal of a node out of the dom
+     * Does not infect the array length and we can
+     * safely loop over it
+     */
     for (let x = 0; x < numberOfNodesToLookAt; x++) {
         childNodesArray.push(childNodes[x]);
         virtualChildNodesArray.push(virtualChildNodes[x]);
@@ -55,7 +60,7 @@ const updateChildNodes = (
 };
 
 const updateNode = (node: Node, virtualNode: Node, parentNode: Node) => {
-    if (shouldReplaceNode(node, virtualNode)) {
+    if (!hasSameNodeType(node, virtualNode)) {
         parentNode.replaceChild(virtualNode, node);
         // Return here -> no need to look through children
         // Whole node has been replaced
@@ -65,13 +70,13 @@ const updateNode = (node: Node, virtualNode: Node, parentNode: Node) => {
     switch (virtualNode.nodeType) {
         // element node
         case 1:
-            let shouldNotTraverseChildren = !updateElementNode(
+            let updatedElementNode = updateElementNode(
                 <Element>node,
                 <Element>virtualNode
             );
-            if (shouldNotTraverseChildren) {
+            if (!updatedElementNode) {
                 // Return here -> no need to look through children
-                // Element node has been replaced or is string-work-element
+                // Element node has been replaced completely or is string-work-element
                 return;
             }
             break;
@@ -100,8 +105,8 @@ const removeNode = (node: Node, parentNode: Node) => {
     parentNode.removeChild(node);
 };
 
-const shouldReplaceNode = (node: Node, virtualNode: Node): boolean => {
-    return node.nodeType !== virtualNode.nodeType;
+const hasSameNodeType = (node: Node, virtualNode: Node): boolean => {
+    return node.nodeType === virtualNode.nodeType;
 };
 
 export { updateComponentNodes };

@@ -1,7 +1,7 @@
 import Component from "./component";
 import { StringWorkElement } from "./constants";
 import DATA_KEY = StringWorkElement.DATA_KEY;
-import TAG = StringWorkElement.TAG;
+import TAG_NAME = StringWorkElement.TAG_NAME;
 
 /**
  * Returns the component html shell
@@ -38,16 +38,7 @@ const createVirtualComponentChildNodes = (html: string): NodeList => {
  * @param component
  */
 const createComponentHtmlShell = (component: Component): string => {
-    return `<${TAG} ${DATA_KEY}="${component.key}"></${TAG}>`;
-};
-
-/**
- * Returns object property by key
- * @param key
- */
-const getObjectPropertyByKey = (object: any, key: string) => {
-    const getKeyValue = (key: string) => (obj: Record<string, any>) => obj[key];
-    return getKeyValue(key)(object);
+    return `<${TAG_NAME} ${DATA_KEY}="${component.key}"></${TAG_NAME}>`;
 };
 
 export {
@@ -55,5 +46,4 @@ export {
     getComponentChildNodes,
     createVirtualComponentChildNodes,
     createComponentHtmlShell,
-    getObjectPropertyByKey,
 };

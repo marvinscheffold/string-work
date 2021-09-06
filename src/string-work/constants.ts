@@ -1,4 +1,4 @@
 export namespace StringWorkElement {
-    export const TAG: string = "string-work-element";
-    export const DATA_KEY: string = "key";
+    export const TAG_NAME: string = "STRING-WORK-ELEMENT";
+    export const DATA_KEY: string = "KEY";
 }

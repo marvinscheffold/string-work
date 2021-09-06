@@ -73,7 +73,6 @@ export class StringWorkDOM {
 
     private renderComponent(component: Component): void {
         const nextHtml = component.render();
-        console.log(nextHtml);
         updateComponentNodes(component, nextHtml);
     }
 

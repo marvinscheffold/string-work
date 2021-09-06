@@ -1,10 +1,9 @@
 import { StringWorkElement } from "../constants";
-import TAG = StringWorkElement.TAG;
-import { getObjectPropertyByKey } from "../string-work-helper";
+import TAG_NAME = StringWorkElement.TAG_NAME;
 
 /**
- * Returns false if ElementNode has been replaced
- * And it is not necessary to keep traversing through children
+ * Returns false if ElementNode has been replaced or is a
+ * String-Work-Element => It is not necessary to look at children
  * @param liveElementNode
  * @param virtualElementNode
  */
@@ -12,7 +11,7 @@ const updateElementNode = (
     elementNode: Element,
     virtualElementNode: Element
 ): boolean => {
-    if (shouldReplaceElementNode(elementNode, virtualElementNode)) {
+    if (!hasSameTagName(elementNode, virtualElementNode)) {
         replaceElementNode(elementNode, virtualElementNode);
         return false;
     }
@@ -72,14 +71,14 @@ const replaceElementNode = (
 };
 
 const isStringWorkElement = (elementNode: Element) => {
-    return elementNode.tagName === TAG;
+    return elementNode.tagName === TAG_NAME;
 };
 
-const shouldReplaceElementNode = (
+const hasSameTagName = (
     elementNode: Element,
     virtualElementNode: Element
 ): boolean => {
-    return elementNode.tagName !== virtualElementNode.tagName;
+    return elementNode.tagName === virtualElementNode.tagName;
 };
 
 export { updateElementNode };
