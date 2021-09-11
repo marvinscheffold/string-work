@@ -53,11 +53,15 @@ export default abstract class Component<
         return this.state;
     }
 
-    public setProps(props: PropType) {
-        if (props === undefined) {
+    public setProps(nextProps: PropType) {
+        if (
+            nextProps === undefined ||
+            nextProps === null ||
+            !(typeof nextProps === "object")
+        ) {
             return;
         }
-        this.props = { ...props };
+        this.props = { ...nextProps };
     }
 
     public getProps(): PropType {
