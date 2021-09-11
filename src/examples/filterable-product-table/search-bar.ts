@@ -27,7 +27,7 @@ export default class SearchBar extends Component {
         <p>
           <input
             type="checkbox"
-            ${this.props.inStockOnly ? "checked" : null}
+            ${this.props.inStockOnly ? "checked" : ""}
             oninput="${this.self}.handleInStockChange(this.checked)"
           />
           Only show products in stock

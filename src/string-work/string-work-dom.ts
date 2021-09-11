@@ -7,12 +7,6 @@ import Component, {
 import { createComponentHtmlShell, getHash } from "./string-work-helper";
 import { updateComponentNodes } from "./string-work-diffing";
 
-declare global {
-    interface Window {
-        StringWorkDOM: StringWorkDOM;
-    }
-}
-
 type VirtualDomComponent = {
     component: Component;
     snapshot: string;
@@ -105,18 +99,12 @@ export class StringWorkDOM {
             } finally {
                 setTimeout(() => this.mountComponent(component), 0);
             }
-            // Component has been mounted before
+            // Component has been mounted before, we just need to update props
         } else {
-            const prevProps = component.getProps();
-            const prevState = component.getState();
-            component.setProps(props);
             try {
                 return createComponentHtmlShell(component);
             } finally {
-                setTimeout(
-                    () => this.updateComponent(component, prevProps, prevState),
-                    0
-                );
+                setTimeout(() => component.setProps(props), 0);
             }
         }
     }

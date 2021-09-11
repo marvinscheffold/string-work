@@ -53,9 +53,12 @@ const updateElementNodeProperties = (
     elementNode: Element,
     virtualElementNode: Element
 ) => {
-    // @ts-ignore
-    elementNode.value = virtualElementNode.value;
-    elementNode.className = virtualElementNode.className;
+    if (elementNode.value !== virtualElementNode.value) {
+        elementNode.value = virtualElementNode.value;
+    }
+    if (elementNode.className !== virtualElementNode.className) {
+        elementNode.className = virtualElementNode.className;
+    }
 };
 
 /**

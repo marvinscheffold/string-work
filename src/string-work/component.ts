@@ -39,33 +39,38 @@ export default abstract class Component<
             );
         }
 
-        const shouldUpdate = this.shouldComponentUpdate(this.props, nextState);
+        const shouldComponentUpdate = this.shouldComponentUpdate(
+            this.props,
+            nextState
+        );
 
         const prevState = { ...this.state };
         this.state = Object.assign(this.state, nextState);
 
-        if (shouldUpdate) {
+        if (shouldComponentUpdate) {
             window.StringWorkDOM.updateComponent(this, this.props, prevState);
         }
     }
 
-    public getState(): StateType {
-        return this.state;
-    }
-
     public setProps(nextProps: PropType) {
-        if (
-            nextProps === undefined ||
-            nextProps === null ||
-            !(typeof nextProps === "object")
-        ) {
-            return;
+        if (nextProps === undefined) return;
+        if (nextProps === null || !(typeof nextProps === "object")) {
+            throw Error(
+                "component props must be of type object or === undefined"
+            );
         }
-        this.props = { ...nextProps };
-    }
 
-    public getProps(): PropType {
-        return this.props;
+        const shouldComponentUpdate = this.shouldComponentUpdate(
+            nextProps,
+            this.state
+        );
+
+        const prevProps = { ...this.props };
+        this.props = { ...nextProps };
+
+        if (shouldComponentUpdate) {
+            window.StringWorkDOM.updateComponent(this, prevProps, this.state);
+        }
     }
 
     // If state or props changed return true
