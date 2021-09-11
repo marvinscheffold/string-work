@@ -8,13 +8,11 @@ StringWork is a react-like library for building user interfaces.<br>
 # Why?
 
 I really like React and in order to understand it even better 
-I started this project. I do not intend to create a widely used 
-framework - at least for now. This is just for fun and to push my own limits.
+I started this project. This is just for fun and to push my own limits.
 
 # Installation
 
-Right now StringWork is only available via this repository. 
-
+Right now StringWork is only available via this repository.
 To view demo project execute following in the root directory:
 
 ```shell
@@ -69,7 +67,7 @@ new StringWorkDOM().render(
 
 ``` 
 
-This second example will render "Mr. Anderson is is teaching Math" into a container on the page.
+This second example will render "Mr. Anderson is teaching Math" into a container on the page.
 Here I used a functional string-work-component.
 
 # Issues 
