@@ -36,6 +36,7 @@ const updateElementNodeAttributes = (
     for (let i = 0; i < virtualElementNode.attributes.length; i++) {
         const attribute = virtualElementNode.attributes[i];
         if (attribute.specified) {
+            console.log(attribute.name, attribute.value);
             elementNode.setAttribute(attribute.name, attribute.value);
         } else {
             elementNode.removeAttribute(attribute.name);

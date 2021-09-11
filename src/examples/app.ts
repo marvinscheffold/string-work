@@ -9,6 +9,8 @@ import Counter from "./counter/counter";
 
 /** Example: async await **/
 import TodoList from "./todo-list/todo-list";
+
+/** Example: https://reactjs.org/docs/thinking-in-react.html **/
 import FilterableProductTable from "./filterable-product-table/filterable-product-table";
 
 export default class App extends Component {
