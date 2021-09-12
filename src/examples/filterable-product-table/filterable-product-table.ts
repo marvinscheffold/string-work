@@ -20,7 +20,7 @@ const PRODUCTS = [
     {
         category: "Sporting Goods",
         price: "$9.99",
-        stocked: true,
+        stocked: false,
         name: "Baseball",
     },
     {
@@ -91,8 +91,7 @@ export default class FilterableProductTable extends Component<any, State> {
                     products: PRODUCTS,
                     filterText: this.state.filterText,
                     inStockOnly: this.state.inStockOnly,
-                })}
-                
+                })}      
             </div>
         `;
     }

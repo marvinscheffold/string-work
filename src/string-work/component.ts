@@ -34,7 +34,7 @@ export default abstract class Component<
 
     protected setState<Key extends keyof StateType>(
         nextStateOrPropOfState: Pick<StateType, Key> | StateType
-    ) {
+    ): void {
         if (
             nextStateOrPropOfState === undefined ||
             nextStateOrPropOfState === null ||
@@ -63,7 +63,7 @@ export default abstract class Component<
         }
     }
 
-    public setProps(nextProps: PropType) {
+    public setProps(nextProps: PropType): void {
         if (nextProps === undefined) return;
         if (!(typeof nextProps === "object")) {
             throw Error(
@@ -106,9 +106,12 @@ export default abstract class Component<
      */
     abstract render(): string;
 
-    public componentDidMount() {}
+    public componentDidMount(): void {}
 
-    public componentDidUpdate(prevProps: PropType, prevState: StateType) {}
+    public componentDidUpdate(
+        prevProps: PropType,
+        prevState: StateType
+    ): void {}
 
-    public componentWillUnmount() {}
+    public componentWillUnmount(): void {}
 }

@@ -13,6 +13,9 @@ import TodoList from "./todo-list/todo-list";
 /** Example: https://reactjs.org/docs/thinking-in-react.html **/
 import FilterableProductTable from "./filterable-product-table/filterable-product-table";
 
+/** Example showing that string-work can handle many fast state updates **/
+import StopWatch from "./stop-watch/stop-watch";
+
 export default class App extends Component {
     constructor(props: any) {
         super(props);
@@ -20,11 +23,7 @@ export default class App extends Component {
     render() {
         return `
             <div class="container" style="padding-top: 24px">    
-               ${c(
-                   FilterableProductTable,
-                   { key: "temperature-converter" },
-                   this
-               )}
+               ${c(StopWatch, { key: "stop-watch" }, this)}
             </div>`;
     }
 }
