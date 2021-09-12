@@ -54,7 +54,7 @@ type State = {
     inStockOnly: boolean;
 };
 
-export default class FilterableProductTable extends Component {
+export default class FilterableProductTable extends Component<any, State> {
     constructor(props: any) {
         super(props);
         this.state = {

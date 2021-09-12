@@ -12,9 +12,13 @@ export interface ComponentState {
     [key: string]: any;
 }
 
+type Pick<T, K extends keyof T> = {
+    [P in K]: T[P];
+};
+
 export default abstract class Component<
     PropType extends ComponentProps = any,
-    StateType = any
+    StateType extends ComponentState = any
 > {
     public readonly key: string;
 
@@ -28,24 +32,31 @@ export default abstract class Component<
         this.self = `StringWorkDOM.getComponentInstance('${this.key}')`;
     }
 
-    protected setState(nextState: StateType) {
+    protected setState<Key extends keyof StateType>(
+        nextStateOrPropOfState: Pick<StateType, Key> | StateType
+    ) {
         if (
-            nextState === undefined ||
-            nextState === null ||
-            !(typeof nextState === "object")
+            nextStateOrPropOfState === undefined ||
+            nextStateOrPropOfState === null ||
+            !(typeof nextStateOrPropOfState === "object")
         ) {
             throw Error(
                 "setState(...): takes an object of state variables to update"
             );
         }
 
+        const prevState = { ...this.state };
+        const nextState = Object.assign(
+            { ...this.state },
+            nextStateOrPropOfState
+        );
+
         const shouldComponentUpdate = this.shouldComponentUpdate(
             this.props,
             nextState
         );
 
-        const prevState = { ...this.state };
-        this.state = Object.assign(this.state, nextState);
+        this.state = nextState;
 
         if (shouldComponentUpdate) {
             window.StringWorkDOM.updateComponent(this, this.props, prevState);
@@ -54,7 +65,7 @@ export default abstract class Component<
 
     public setProps(nextProps: PropType) {
         if (nextProps === undefined) return;
-        if (nextProps === null || !(typeof nextProps === "object")) {
+        if (!(typeof nextProps === "object")) {
             throw Error(
                 "component props must be of type object or === undefined"
             );

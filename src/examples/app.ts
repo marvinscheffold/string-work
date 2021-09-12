@@ -22,7 +22,7 @@ export default class App extends Component {
             <div class="container" style="padding-top: 24px">    
                ${c(
                    FilterableProductTable,
-                   { key: "filterable-product-table" },
+                   { key: "temperature-converter" },
                    this
                )}
             </div>`;

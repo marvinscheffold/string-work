@@ -32,7 +32,6 @@ const updateElementNodeAttributes = (
     elementNode: Element,
     virtualElementNode: Element
 ) => {
-    // If element type is the same loop trough all attributes
     for (let i = 0; i < virtualElementNode.attributes.length; i++) {
         const virtualElementAttribute = virtualElementNode.attributes[i];
 
@@ -45,7 +44,7 @@ const updateElementNodeAttributes = (
         }
 
         if (
-            virtualElementAttribute.value !=
+            virtualElementAttribute.value !==
             elementNode.getAttribute(virtualElementAttribute.name)
         ) {
             elementNode.setAttribute(
@@ -66,6 +65,9 @@ const updateElementNodeProperties = (
     elementNode: Element,
     virtualElementNode: Element
 ) => {
+    // Solving the problem of special attributes that wont update UI
+    // When simply updated via setAttribute(... , ...);
+    // Namely: value and className
     if (elementNode.value !== virtualElementNode.value)
         elementNode.value = virtualElementNode.value;
 
