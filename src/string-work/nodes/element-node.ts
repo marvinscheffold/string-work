@@ -34,12 +34,24 @@ const updateElementNodeAttributes = (
 ) => {
     // If element type is the same loop trough all attributes
     for (let i = 0; i < virtualElementNode.attributes.length; i++) {
-        const attribute = virtualElementNode.attributes[i];
-        if (attribute.specified) {
-            console.log(attribute.name, attribute.value);
-            elementNode.setAttribute(attribute.name, attribute.value);
-        } else {
-            elementNode.removeAttribute(attribute.name);
+        const virtualElementAttribute = virtualElementNode.attributes[i];
+
+        if (
+            !virtualElementAttribute.specified &&
+            elementNode.hasAttribute(virtualElementAttribute.name)
+        ) {
+            elementNode.removeAttribute(virtualElementAttribute.name);
+            continue;
+        }
+
+        if (
+            virtualElementAttribute.value !=
+            elementNode.getAttribute(virtualElementAttribute.name)
+        ) {
+            elementNode.setAttribute(
+                virtualElementAttribute.name,
+                virtualElementAttribute.value
+            );
         }
     }
 };
@@ -54,12 +66,11 @@ const updateElementNodeProperties = (
     elementNode: Element,
     virtualElementNode: Element
 ) => {
-    if (elementNode.value !== virtualElementNode.value) {
+    if (elementNode.value !== virtualElementNode.value)
         elementNode.value = virtualElementNode.value;
-    }
-    if (elementNode.className !== virtualElementNode.className) {
+
+    if (elementNode.className !== virtualElementNode.className)
         elementNode.className = virtualElementNode.className;
-    }
 };
 
 /**
