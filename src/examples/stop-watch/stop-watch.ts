@@ -49,17 +49,17 @@ export default class StopWatch extends Component<any, State> {
             seconds
         )}.${toTwoDigitString(ms)}</h3>
                 ${c(Button, {
-                    key: "start",
+                    key: `start${this.key}`,
                     callback: () => this.setState({ running: true }),
                     text: "Start",
                 })}
                 ${c(Button, {
-                    key: "stop",
+                    key: `stop${this.key}`,
                     callback: () => this.setState({ running: false }),
                     text: "Stop",
                 })}
                 ${c(Button, {
-                    key: "reset",
+                    key: `reset${this.key}`,
                     callback: () => this.setState({ milliseconds: 0 }),
                     text: "Reset",
                 })}

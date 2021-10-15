@@ -21,13 +21,13 @@ export default class Counter extends Component<any, State> {
                 <div class="card-body">
                 <h5 class="card-title">Current Count: ${this.state.count}</h5>
                 ${c(Button, {
-                    key: "minusbtn",
+                    key: `minusbtn${this.key}`,
                     callback: () =>
                         this.setState({ count: this.state.count - 1 }),
                     text: "-",
                 })}
                 ${c(Button, {
-                    key: "plusbtn",
+                    key: `plusbtn${this.key}`,
                     callback: () =>
                         this.setState({ count: this.state.count + 1 }),
                     text: "+",
