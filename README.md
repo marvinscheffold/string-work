@@ -54,9 +54,9 @@ the code just like in an HTML-Document.
 
 ```javascript
 
-function Teacher(props: Props) {
+function Teacher({name, subject}: Props) {
     return (`
-        <div>${props.name} is teaching ${props.subject}</div>
+        <div>${name} is teaching ${subject}</div>
     `);
 }
 
