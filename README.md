@@ -56,7 +56,7 @@ the code just like in an HTML-Document.
 
 function Teacher(props: Props) {
     return (`
-        <div>${this.props.name} is teaching ${this.props.subject}</div>
+        <div>${props.name} is teaching ${props.subject}</div>
     `);
 }
 
